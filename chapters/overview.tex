@@ -28,26 +28,62 @@
 
 \subsection{产品环境介绍}
 
-\begin{itemize}
-    \item 我们的项目分为服务端与客户端，其中，服务端是统一的，
+我们的项目分为服务端与客户端，其中，服务端是统一的，
     所有客户端都由该统一服务端进行数据交互与信息支持；
     而为了满足用户多种多样的收听音乐的环境，
     我们的客户端有较多种类，
     目前，我们需要考虑以下客户端环境：
     \begin{enumerate}
-        \item 网页浏览器环境，对应网页客户端；
-        \item Windows环境，对应传统程序客户端和较新的
+        \item \textbf{网页浏览器环境}，对应网页客户端；
+        \item \textbf{Windows环境}，对应传统程序客户端和较新的
         Universal Application（应用商店内应用程序）；
-        \item Mac OS环境，对应一般程序客户端；
-        \item Linux环境，对应一般客户端以及基于命令行的最小化客户端；
-        \item iOS移动环境，对应iOS应用（App Store内应用程序）；
-        \item Android移动环境，对应安卓应用程序；
-        \item 车载娱乐系统环境，对应厂商预装车载娱乐系统内程序；
-        \item 电视机机顶盒环境，对应电视服务商提供的机顶盒内程序；
+        \item \textbf{Mac OS环境}，对应一般程序客户端；
+        \item \textbf{Linux环境}，对应一般客户端以及基于命令行的最小化客户端；
+        \item \textbf{iOS移动环境}，对应iOS应用（App Store内应用程序）；
+        \item \textbf{Android移动环境}，对应安卓应用程序；
+        \item \textbf{车载娱乐系统环境}，对应厂商预装车载娱乐系统内程序；
+        \item \textbf{电视机机顶盒环境}，对应电视服务商提供的机顶盒内程序。
     \end{enumerate}
-    \item
-    \item
-\end{itemize}
+
+在服务器端，我们需要可靠的数据库来支持音乐服务的运行，这些数据库储存必要的信息，
+    在这里我们不对数据库的具体实现以及性能要求做限制，
+    仅给出数据库需要满足的结构特性以及功能需求。
+具体而言，我们需要以下的数据库存储模块：
+    \begin{enumerate}
+        \item \textbf{音乐数据库}，储存了各种音质版本的音乐数据文件；
+        \item \textbf{音乐元数据（Meta Data）数据库}，储存所有音乐的相关信息，如
+            作者、所属专辑、发行日期等；
+        \item \textbf{商品数据库}，需要储存所有音乐的价格以及优惠信息等；
+        \item \textbf{用户数据库}，需要储存所有用户的信息，包括用户名、密码、密保信息、
+            订阅信息、账户余额等；
+        \item \textbf{用户-商品库}，存储用户对音乐的购买信息，包括用户的购物车信息、
+            已购买音乐的支付信息与历史记录等；
+        \item \textbf{用户-音乐库}，存储用户与音乐之间的联系，
+            具体而言，储存了用户对听过的音乐的喜爱程度、评分、发出的评论，
+            并且储存了用户收听音乐的历史信息，如在何时，听了某首音乐多久、循环次数等。
+    \end{enumerate}
+
+服务器端不仅需要数据库服务来存储软件的数据，并且，还需要相关的接口，
+    来提供软件来调用，同样，在这一章节，我们不对接口的详细信息做出定义与限制，
+    只是给出接口的分类以及服务的功能性描述。
+具体而言，我们需要以下的服务器接口：
+\begin{enumerate}
+    \item \textbf{音乐下载接口}，通过该接口，客户端可以获取需要的音乐文件，
+        我们需要保证在尽可能多的时间段内，用户都可以获取稳定、高速的下载服务；
+    \item \textbf{流播放服务接口}，该接口提供了音乐的串流服务，主要用于在线收听没有下载
+        的音乐，根据流数据服务的时效性与响应紧急性，我们需要每一个客户端的
+        流服务请求都能得到尽可能快的相应；
+    \item \textbf{用户信息交互接口}，该接口提供了用户登陆信息的传递以及验证的功能
+        （用户注册功能亦然），我们希望该服务可以长期稳定；
+    \item \textbf{商品交易服务接口}，该接口提供了从客户端购买音乐的功能的基础，
+        当用户发起支付的需求时，对于内部支付方式（账户余额）以及多种支付方式
+        （信用卡、支付宝、微信支付以及未来可能出现的各种支付方式）都应该
+        可以正确、稳定、高效的处理；
+    \item \textbf{第三方API处理接口}，该接口主要用于处理我们提供给第三方的外部
+        应用程序接口的信息处理，我们需要保证在稳定高效处理数据请求的同时，
+        首先保证自身（第一方）服务的稳定，并确保信息安全，防止第三方窃取用户数据。
+\end{enumerate}
+
 
 % 描述的是本产品与其它产品或项目所组成的整体环境。
 
@@ -64,16 +100,17 @@
 % 通过方块图来描述大系统或项目的主要组件，互连性以及外部接口将是非常有帮助的。本部分不应提出一个具体的设计解决方案或对解决方案的具体设计约束（具体设计约束将在具体需求章节中描述）。本部分内容是产生设计约束的基础。
 
 \section{软件功能}
-Summarizes the major functions that must be implemented through the software, and the functions to be implemented through user operation. Details will be provided in the Specific Requirement, so only a summary (such as a directory list) is needed here. The functions should be organized to make them understandable to the readers, and be appropriate for subsequent design and tests. Diagrams like top-level data flow diagram or object class diagram are recommended to illustrate the relationships among the major requirement groups
 
-Sometimes, this section can directly refer to the superior specification of the software that allocate the specific requirements to this software ( if existed ).
-The specific requirements should not be described in this section. But this section is the basis of the specific requirements.
+在本小节中，我们对\proname 产品功能细节进行全局介绍。
+在这一小节，我们暂时不对功能的具体实现细节以及性能上的限制做出晚会曾细节的定义，
+    只是在全局上给出功能的一个概览，目的是让实现者以及使用者可以
+    看到获知我们项目的整体功能概况，对产品需求可以有一个清晰简明的认识。
 
-概述软件的必须实现的和通过用户操作实现的主要功能。这里只需要进行简要描述（例如目录列表），详细描述在详细需求部分描述。对需求功能进行组织，以便于读者理解，并能指导后续的设计和测试。可以用图表来表示主要需求群组之间的关系，例如：高层的数据流图，面向对象的分析等。
+% 概述软件的必须实现的和通过用户操作实现的主要功能。这里只需要进行简要描述（例如目录列表），详细描述在详细需求部分描述。对需求功能进行组织，以便于读者理解，并能指导后续的设计和测试。可以用图表来表示主要需求群组之间的关系，例如：高层的数据流图，面向对象的分析等。
 
-有时此部分所要求的功能概述可以从分配具体功能给此软件产品的更高层规格（如果存在的话）直接引用。
+% 有时此部分所要求的功能概述可以从分配具体功能给此软件产品的更高层规格（如果存在的话）直接引用。
 
-本节不应描述具体需求。但本节内容是具体需求章节的基础。
+% 本节不应描述具体需求。但本节内容是具体需求章节的基础。
 
 \section{用户特征}
 List down the basic required characteristics of the user or operator of the system. E.g. the experience, Skill level, required role etc.,
