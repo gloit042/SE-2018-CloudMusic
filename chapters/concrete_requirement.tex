@@ -981,7 +981,7 @@
 		软件商提供的安装介质
 	\item \textbf{目的}：
 		作为储存服务器数据的可选项之一，我们将根据实际情况，
-			最终决定是否使用它，另一选项是MuSQL数据库软件。
+			最终决定是否使用它，另一选项是PostgreSQL数据库软件。
 	\item \textbf{接口定义}：
 		包含以下接口：
 		\begin{enumerate}
@@ -996,16 +996,16 @@
 \subsubsection{数据库软件产品可选项B} % (fold)
 \begin{itemize}
 	\item \textbf{名字}：
-		MySQL Server
+		PostgreSQL Server
 	\item \textbf{助记符}：
-		MySQL
+		PostgreSQL
 	\item \textbf{版本号}：
-		5.7
+		10.3
 	\item \textbf{来源}：
 		包管理器
 	\item \textbf{目的}：
 		作为储存服务器数据的可选项之一，我们将根据实际情况，
-			最终决定是否使用它，另一选项是MuSQL数据库软件。
+			最终决定是否使用它，另一选项是Oracle Database数据库软件。
 	\item \textbf{接口定义}：
 		包含以下接口：
 		\begin{enumerate}
@@ -1017,25 +1017,62 @@
 		\end{enumerate}
 \end{itemize}
 
+\subsubsection{HTTP服务器} % (fold)
+\begin{itemize}
+	\item \textbf{名字}：
+	Nginx
+	\item \textbf{助记符}：
+	Nginx
+	\item \textbf{版本号}：
+	1.14.0
+	\item \textbf{来源}：
+	包管理器
+	\item \textbf{目的}：
+	提供文件下载和动态网页的换发
+	\item \textbf{接口定义}：
+	使用nginx的配置文件来定义结构并过滤包，使用80和443端口对公网提供服务
+\end{itemize}
+
+\subsubsection{后端框架} % (fold)
+\begin{itemize}
+	\item \textbf{名字}：
+	Django
+	\item \textbf{助记符}：
+	Django
+	\item \textbf{版本号}：
+	2.0.4
+	\item \textbf{来源}：
+	包管理器
+	\item \textbf{目的}：
+	提供RESTful API，运行实际服务
+	\item \textbf{接口定义}：
+	使用HTTP协议，监听从Nginx转发来的请求
+\end{itemize}
+
+\subsubsection{音频解码}
+\begin{itemize}
+	\item \textbf{名字}：
+	mpg123
+	\item \textbf{助记符}：
+	mpg123
+	\item \textbf{版本号}：
+	1.25.10
+	\item \textbf{来源}：
+	mpg123官网: http://mpg123.org/
+	\item \textbf{目的}：
+	解码mp3
+	\item \textbf{接口定义}：
+	使用mpg123接口进行音频解码和输出
+\end{itemize}
 
 \subsection{硬件接口}
-<The interface with other hardware components should be explained in detail. >
 
-详细描述与硬件的接口
+后端服务可以运行在任何32位或64位X86架构的服务器上，要求服务器有互联网接入，32GB以上的磁盘存储空间。
 
-Describes the logical features of the interface between the software and hardware components, including the equipment supported and how the equipment and protocol is supported. 
+客户端软件要求运行在有互联网接入，有声卡的任何iOS移动设备，Android移动设备，MacOS、Windows、Linux个人计算机设备上。
 
-Defines the interfaces according to the content and format of the software/hardware protocol. If the interfaces have been clearly described in other documents, it is not necessary to describe in detail here. But the reference of those documents should be given.
-
-在此描述软件产品和系统硬件组件之间接口的逻辑特征，也包括支持哪些设备、怎样支持这些设备和协议等。
- 
-按软/硬件协议内容和格式定义接口。如果接口已在其它文档中很清楚地描述，就没有必要在这儿进行详细描述，但需说明应参考的文档。
 
 \subsection{通讯接口}
-<This should specify the various interfaces to communications such as local network protocols, etc.>
 
-详细描述通讯接口，如本地网络协议等。
+使用HTTP1.0/HTTP1.1/HTTPS协议在前端和后端之间进行交互。
 
-Defines the interfaces according to the content and format of the message/function. If the interfaces have been clearly described in other documents, it is not necessary to describe in detail here. But the reference of those documents should be given.
-
-按消息/函数内容和格式定义接口。如果接口已在其它文档中很清楚地描述，就没有必要在这儿进行详细描述，但需说明应参考的文档。
