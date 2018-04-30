@@ -452,6 +452,36 @@
 \end{itemize}
 
 
+\subsection{R.CLOUDMUSIC.APP.007 音乐下载}
+\subsubsection{介绍}
+	这是在 音乐下载 时，我们需要处理的功能点，包括：
+	\begin{itemize}
+		\item 判定用户的登录状态；
+		\item 判定音乐的购买状态；
+		\item 将音乐下载至本地
+	\end{itemize}
+\subsubsection{输入}
+	\begin{itemize}
+		\item \textbf{输入来源}：客户端或网页浏览器；
+		\item \textbf{内容}：请求的来源；
+		\item \textbf{有效输入范围}：需判定为合法的请求；
+	\end{itemize}
+\subsubsection{处理}
+	\begin{enumerate}
+		\item 检测输入有效性，检测请求来源和格式是否符合标准；
+		\item 如果没有登陆，生成登陆界面，也要提供注册功能的入口；
+		\item 检测登陆凭据，若校验失败或登录超时，返回对应错误，不进入下一步；
+		\item 向服务器请求用户购买音乐的数据；
+		\item 如果用户没有购买该歌曲，提示未购买，并生成购买界面，否则进入下一步；
+		\item 将歌曲加入下载队列；
+	\end{enumerate}
+\subsubsection{输出}
+\begin{itemize}
+	\item \textbf{输出位置}：客户端或网页浏览器；
+	\item \textbf{内容}：若成功，返回 设置界面生成完成的信息 ，若失败，返回 失败的原因；
+	\item \textbf{有效输出范围}：无限制（根据服务端的程序逻辑，不会产生非法响应）；
+	\item \textbf{错误消息}：理论上，该界面不应该发生错误，若有，则应当视为程序BUG；
+\end{itemize}
 
 \section{性能需求}
 <If there are performance requirements, state them here and explain their rationale, to help the developers understand the intent and make suitable design choices. Specifies the timing relationships for real time systems. Such requirements should be made as specific as possible. >
