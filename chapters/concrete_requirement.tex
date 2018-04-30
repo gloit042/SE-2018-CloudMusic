@@ -968,33 +968,55 @@
 
 
 \subsection{软件接口}
-<The interface with other system/modules/projects should be explained in detail. >
 
-详细描述与其他系统 /模块 /项目之间的接口
+\subsubsection{数据库软件产品可选项A} % (fold)
+\begin{itemize}
+	\item \textbf{名字}：
+		Oracle Database 数据库软件
+	\item \textbf{助记符}：
+		Oracle Database
+	\item \textbf{版本号}：
+		12c Release 1
+	\item \textbf{来源}：
+		软件商提供的安装介质
+	\item \textbf{目的}：
+		作为储存服务器数据的可选项之一，我们将根据实际情况，
+			最终决定是否使用它，另一选项是MuSQL数据库软件。
+	\item \textbf{接口定义}：
+		包含以下接口：
+		\begin{enumerate}
+			\item 查询用户 ， ViewUser   ， 接口格式：$\{ UID \}$
+			\item 校验用户 ， CheckUser  ， 接口格式：$\{ UID, LoginInfo \}$
+			\item 注册用户 ， RegisterUser  ， 接口格式：$\{ UID,  PassWord, Email\}$
+			\item 查询音乐 ， ViewMusic  ， 接口格式：$\{ MID \}$
+			\item 检验音乐可访问性 ， AccessMusic ，接口格式： $\{ MID, UID, LoginInfo \}$ 
+		\end{enumerate}
+\end{itemize}
 
-Describes how to use the other (required) software products. (such as data management system, operation system, or algorithm tools package), and the interfaces to other application systems (such as interfaces between the protocol process system and the database management system )
-For each required software product, following information should be provided:
-A. Name
-B. Mnemonic symbol
-C. Version number
-D. Source
-For each interface, this section should:
-A. Discuss the objective of the required software.
-B. Define the interfaces by content and format of message/function. If the interfaces have been clearly described in other documents, it is not necessary to describe in detail here. But the reference of those documents should be given.
+\subsubsection{数据库软件产品可选项B} % (fold)
+\begin{itemize}
+	\item \textbf{名字}：
+		MySQL Server
+	\item \textbf{助记符}：
+		MySQL
+	\item \textbf{版本号}：
+		5.7
+	\item \textbf{来源}：
+		包管理器
+	\item \textbf{目的}：
+		作为储存服务器数据的可选项之一，我们将根据实际情况，
+			最终决定是否使用它，另一选项是MuSQL数据库软件。
+	\item \textbf{接口定义}：
+		包含以下接口：
+		\begin{enumerate}
+			\item 查询用户 ， ViewUser   ， 接口格式：$\{ UID \}$
+			\item 校验用户 ， CheckUser  ， 接口格式：$\{ UID, LoginInfo \}$
+			\item 注册用户 ， RegisterUser  ， 接口格式：$\{ UID,  PassWord, Email\}$
+			\item 查询音乐 ， ViewMusic  ， 接口格式：$\{ MID \}$
+			\item 检验音乐可访问性 ， AccessMusic ，接口格式： $\{ MID, UID, LoginInfo \}$ 
+		\end{enumerate}
+\end{itemize}
 
-在此应描述如何使用其它（必需的）软件产品（例如，数据管理系统，操作系统，或算法工具包），以及与其它应用系统的接口（例如，协议处理系统和数据库管理系统之间的接口）。
-
-对每个必需的软件产品，应提供下列信息：
-A.	名字
-B.	助记符
-C.	版本号
-D.	来源
-
-对每个接口，本部分应：
-
-A .	讨论与本软件产品相关的接口软件的目的。
-
-B.	按消息/函数内容和格式定义接口。如果接口已在其它文档中很清楚地描述，就没有必要在这儿进行详细描述，但需说明应参考的文档。
 
 \subsection{硬件接口}
 <The interface with other hardware components should be explained in detail. >
