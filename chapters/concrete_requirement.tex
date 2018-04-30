@@ -1164,7 +1164,7 @@ JSON所支持的数据类型如下：
 返回:
 \begin{itemize}
 	\item 成功： 200 -> String = 'OK'
-	\item 失败： 403
+	\item 失败： 403 -> String // 理由
 \end{itemize}
 
 \subsubsection{POST /api/users/phone\_login/}
@@ -1181,7 +1181,7 @@ JSON所支持的数据类型如下：
 返回:
 \begin{itemize}
 	\item 成功： 200 -> String = 'OK'
-	\item 失败： 403
+	\item 失败： 403 -> String // 理由
 \end{itemize}
 
 \subsubsection{GET /api/users/logout/}
@@ -1191,7 +1191,7 @@ JSON所支持的数据类型如下：
 返回:
 \begin{itemize}
 	\item 成功： 200 -> String = 'OK'
-	\item 失败： 403
+	\item 失败： 403 -> String // 理由
 \end{itemize}
 
 
@@ -1202,7 +1202,7 @@ JSON所支持的数据类型如下：
 返回:
 \begin{itemize}
 	\item 成功： 200 -> User
-	\item 未登录： 403
+	\item 未登录： 403 -> String = 'not logged'
 	\item 不存在： 404
 \end{itemize}
 
@@ -1221,7 +1221,7 @@ JSON所支持的数据类型如下：
 返回:
 \begin{itemize}
 	\item 成功： 200 -> String :头像的URL
-	\item 未登录： 403
+	\item 未登录： 403 -> String = 'not logged'
 	\item 无文件：400
 \end{itemize}
 
@@ -1241,7 +1241,7 @@ JSON所支持的数据类型如下：
 返回:
 \begin{itemize}
 	\item 成功： 200 -> String = 'OK'
-	\item 未登录： 403
+	\item 未登录： 403 -> String = 'not logged'
 \end{itemize}
 
 \subsubsection{GET /api/users/reset\_password\_mail/}
@@ -1264,7 +1264,7 @@ JSON所支持的数据类型如下：
 \begin{itemize}
 \item 成功： 200 -> String = 'OK'
 \item 请求过于频繁： 429
-\item 邮件发送失败： 500
+\item 短信发送失败： 500
 \end{itemize}
 
 
@@ -1276,7 +1276,7 @@ JSON所支持的数据类型如下：
 返回:
 \begin{itemize}
 	\item 成功： 200 -> User
-	\item 未登录： 403
+	\item 未登录： 403 -> String = 'not logged'
 \end{itemize}
 
 
@@ -1287,18 +1287,44 @@ JSON所支持的数据类型如下：
 返回:
 \begin{itemize}
 	\item 成功： 200 -> List<MusicInfo>
-	\item 未登录： 403
+	\item 未登录： 403 -> String = 'not logged'
 \end{itemize}
 
-\subsubsection{GET /api/music/:music\_id}
+\subsubsection{GET /api/music/}
 
 \noindent
 功能：获得音乐文件信息\\
-查询参数: qulity: MusicQuality
+查询参数: qulity: MusicQuality, music\_id: String
 返回:
 \begin{itemize}
 	\item 成功： 200 -> MusicFileInfo
-	\item 未登录： 403
+	\item 未付费： 403 -> String = 'Need to buy'
+	\item 未登录： 403 -> String = 'not logged'
 \end{itemize}
 
+
+\subsubsection{GET /api/users/add\_to\_list/}
+
+\noindent
+功能：将目标歌曲加入收听列表
+查询参数： music\_id: String, list\_id: String
+返回:
+\begin{itemize}
+	\item 成功： 200 -> String = 'OK'
+	\item 未付费： 403 -> String = 'Need to buy'
+	\item 未登录： 403 -> String = 'not logged'
+\end{itemize}
+
+
+\subsubsection{GET /api/users/delete\_from\_list/}
+
+\noindent
+功能：将目标歌曲加入收听列表
+查询参数： music\_id: String, list\_id: String
+返回:
+\begin{itemize}
+	\item 成功： 200 -> String = 'OK'
+	\item 不存在歌曲： 403 -> String = 'music not found'
+	\item 未登录： 403 -> String = 'not logged'
+\end{itemize}
 
