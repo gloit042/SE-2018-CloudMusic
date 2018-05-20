@@ -1,78 +1,392 @@
 \chapter{任务概述}
-本系统的目标是实现一个xxx系统，包括客户端、服务器端两个部分。
+本系统的目标是实现一个云音乐储存、管理、播放、运营系统，包括客户端、服务器端两个部分。
 
-客户端面向xxx用户，为用户提供xx和xx服务。
+服务端面向企业管理，可以用于管理服务器中的音乐文件，并且同时存储所有用户的个人信息、
+账户信息、购买信息以及用于用户体验提升的个人音乐喜好信息。
+
+客户端包含多种平台与形式，包括：网页Web客户端、桌面应用客户端、移动设备客户端，
+其中，桌面设备客户端包括Windows、Mac OS、Linux三个平台、 而移动设备客户端包括iOS、
+Android等客户端， 并且， 我们还需要为客户合作的智能电视合作和车载娱乐设备做适配。
+
+客户端面向普通用户，用户可以在客户端上收听海量音乐，音乐的数据由服务端提供。
+用户可以在各个平台上同步自己的歌单、收藏、账户信息、购买信息，并且可以评论、收藏、
+评价、分享平台上的所有歌曲。
 
 \section{目标}
-实现xxx系统，实现需求规格说明书中所描述的xx功能、xxx功能和xxx功能，并且保证系统的健壮性和数据安全。
+实现云音乐系统，实现需求规格说明书中所描述的网络音乐文件传输功能、音乐流播放功能和
+账户管理及支付管理功能，并且保证系统的健壮性和数据安全。
 
+\newpage
 \section{开发与运行环境}
 
 \subsection{开发环境的配置}
-\begin{table}[htbp]
+\begin{table}[h]
 \centering
 \caption{开发环境的配置} \label{tab:development-environment}
 \begin{tabular}{|c|c|c|}
     \hline
     类别 & 标准配置 & 最低配置 \\
     \hline
-    计算机硬件 & \tabincell{c}{基于x86结构的CPU\\ 主频>=2.4GHz\\ 内存>=8G\\ 硬盘>=200G} & \tabincell{c}{基于x86结构的CPU\\ 主频>=1.6GHz\\ 内存>=512M\\ 硬盘>=2G} \\
+    计算机硬件 & \tabincell{c}{基于x86结构的CPU\\ 主频>=3.2GHz\\ 内存>=16G\\ 硬盘>=1TB} & \tabincell{c}{基于x86结构的CPU\\ 主频>=2.0GHz\\ 内存>=4GB\\ 硬盘>=512G} \\
     \hline
-    计算机软件 & \tabincell{c}{Linux (kernel version>=4.10)\\ GNU gcc (version>=6.3.1)} & \tabincell{c}{Linux (kernel version>=3.10)\\ GNU gcc (version>=5.4)} \\
+    计算机软件 & 
+    \tabincell{c} {
+        Linux (kernel version>=4.10)\\ 
+        GNU gcc (version>=6.3.1)\\
+        Qt Developer Kit (version>=5.30)\\
+        Python (version>=2.7)\\
+        Web Storm (version>=8.0)\\
+        Android Studio (可选)\\
+        } & 
+    \tabincell{c} {
+        Linux (kernel version>=3.10)\\ 
+        GNU gcc (version>=5.4)\\
+        Qt Developer Kit (version>=5.10)\\
+        Python (version>=2.7)\\
+        Web Storm (version>=8.0)\\
+        } \\
     \hline
     网络通信 & \tabincell{c}{至少要有一块可用网卡\\ 能运行IP协议栈即可} & \tabincell{c}{至少要有一块可用网卡\\ 能运行IP协议栈即可} \\
     \hline
-    其他 & 采用MySQL数据库 & 采用MySQL数据库 \\
+    其他 & 采用 postgresql 数据库 & 采用 postgresql 数据库 \\
     \hline
 \end{tabular}
-% \note{这里是表的注释}
+~\\~备注：iOS 应用的开发需要使用 Apple Macbook Pro 
+笔记本电脑产品，或者 Apple Mac Pro 系列产品。
 \end{table}
 
+\newpage
 \subsection{测试环境的配置}
 \begin{table}[htbp]
 \centering
-\caption{测试环境的配置} \label{tab:test-environment}
+\caption{PC测试环境的配置} \label{tab:pctest-environment}
 \begin{tabular}{|c|c|c|}
     \hline
     类别 & 标准配置 & 最低配置 \\
     \hline
-    计算机硬件 & \tabincell{c}{基于x86结构的CPU\\ 主频>=2.4GHz\\ 内存>=8G\\ 硬盘>=200G} & \tabincell{c}{基于x86结构的CPU\\ 主频>=1.6GHz\\ 内存>=512M\\ 硬盘>=2G} \\
+    计算机硬件 & \tabincell{c}{基于x86结构的CPU\\ 主频>=3.2GHz\\ 内存>=16G\\ 硬盘>=1TB} & \tabincell{c}{基于x86结构的CPU\\ 主频>=2.0GHz\\ 内存>=4GB\\ 硬盘>=512G} \\
     \hline
-    计算机软件 & \tabincell{c}{Linux (kernel version>=4.10)\\ GNU gcc (version>=6.3.1)} & \tabincell{c}{Linux (kernel version>=3.10)\\ GNU gcc (version>=5.4)} \\
+    计算机软件 & 
+    \tabincell{c} {
+        Linux (kernel version>=4.10)\\ 
+        GNU gcc (version>=6.3.1)\\
+        Qt Runtime (version>=5.30)\\
+        Python (version>=2.7)\\
+        } & 
+    \tabincell{c} {
+        Linux (kernel version>=3.10)\\ 
+        GNU gcc (version>=5.4)\\
+        Qt Runtime (version>=5.10)\\
+        Python (version>=2.7)\\
+        } \\
     \hline
     网络通信 & \tabincell{c}{至少要有一块可用网卡\\ 能运行IP协议栈即可} & \tabincell{c}{至少要有一块可用网卡\\ 能运行IP协议栈即可} \\
     \hline
-    其他 & 采用MySQL数据库 & 采用MySQL数据库 \\
+    其他 & 采用 postgresql 数据库 & 采用 postgresql 数据库 \\
     \hline
-
 \end{tabular}
 % \note{这里是表的注释}
 \end{table}
 
-\subsection{运行环境的配置}
 \begin{table}[htbp]
 \centering
-\caption{运行环境的配置} \label{tab:operation-environment}
+\caption{Android测试环境的配置} \label{tab:iostest-environment}
 \begin{tabular}{|c|c|c|}
     \hline
     类别 & 标准配置 & 最低配置 \\
     \hline
-    计算机硬件 & \tabincell{c}{基于x86结构的CPU\\ 主频>=2.4GHz\\ 内存>=8G\\ 硬盘>=200G} & \tabincell{c}{基于x86结构的CPU\\ 主频>=1.6GHz\\ 内存>=512M\\ 硬盘>=2G} \\
+    硬件设备 & \tabincell{c}{
+        主流配置的安卓系统手机设备\\
+        尽量满足多种分辨率
+    } & \tabincell{c}{
+        标准配置的部分机型\\
+        至少满足所有主要\\
+        分辨率的机型各一部
+    } \\
     \hline
-    计算机软件 & \tabincell{c}{Linux (kernel version>=4.10)\\ GNU gcc (version>=6.3.1)} & \tabincell{c}{Linux (kernel version>=3.10)\\ GNU gcc (version>=5.4)} \\
+        手机硬件 & 
+        \tabincell{c}{
+            基于ARM结构的CPU\\ 
+            主频>=2.4GHz\\ 
+            内存>=4G\\ 
+            硬盘>=128G} & 
+        \tabincell{c}{
+            基于ARM结构的CPU\\ 
+            主频>=1.6GHz\\ 
+            内存>=2G\\ 
+            硬盘>=32G} \\
     \hline
-    网络通信 & \tabincell{c}{至少要有一块可用网卡\\ 能运行IP协议栈即可} & \tabincell{c}{至少要有一块可用网卡\\ 能运行IP协议栈即可} \\
-    \hline
-    其他 & 采用MySQL数据库 & 采用MySQL数据库 \\
-    \hline
-
 \end{tabular}
 % \note{这里是表的注释}
 \end{table}
 
-\section{需求概述}
-功能需求包括：
+\begin{table}[htbp]
+\centering
+\caption{iOS测试环境的配置} \label{tab:iostest-environment}
+\begin{tabular}{|c|c|c|}
+    \hline
+    类别 & 标准配置 & 最低配置 \\
+    \hline
+    硬件设备 & \tabincell{c}{
+        iPhone 6 测试开发机\\
+        iPhone 6 Plus 测试开发机\\
+        iPhone 6S 测试开发机\\
+        iPhone 6S Plus测试开发机\\
+        iPhone 7 Plus 测试开发机\\
+        iPhone 7S 测试开发机\\
+        iPhone 7S Plus测试开发机\\
+        iPhone 8 测试开发机\\
+        iPhone 8 Plus测试开发机\\
+        iPhone 8S 测试开发机\\
+        iPhone 8S Plus测试开发机\\
+        iPhone X 测试开发机
+    } & \tabincell{c}{
+        标准配置的部分机型\\
+        至少满足所有分辨率的机型各一部
+    } \\
+    \hline
+        手机硬件 & 
+        \tabincell{c}{
+            由于iPhone硬件较统一\\不做详细限定\\
+            存储容量建议满足>=64GB
+        } &
+        \tabincell{c}{
+           由于iPhone硬件较统一\\不做详细限定\\
+            存储容量建议至少>=16GB
+        } \\
+    \hline
+\end{tabular}
+% \note{这里是表的注释}
+\end{table}
 
+\newpage
+\subsection{运行环境的配置}
+
+\begin{table}[htbp]
+\centering
+\caption{PC运行环境的配置} 
+\begin{tabular}{|c|c|c|}
+    \hline
+    类别 & 标准配置 & 最低配置 \\
+    \hline
+    计算机硬件 & \tabincell{c}{基于x86结构的CPU\\ 主频>=2.4GHz\\ 内存>=2G\\ 硬盘>=256G} & \tabincell{c}{基于x86结构的CPU\\ 主频>=1.6GHz\\ 内存>=512M\\ 硬盘>=32G} \\
+    \hline
+    计算机软件 & 
+    \tabincell{c} {
+        Linux (kernel version>=4.10)\\ 
+        或\\
+        Windows 7 以上\\
+        Qt Runtime (version>=5.30)\\
+        } & 
+    \tabincell{c} {
+        Linux (kernel version>=3.10)\\ 
+                或\\
+        Windows 7 以上\\
+        Qt Runtime (version>=5.10)\\
+        } \\
+    \hline
+    网络通信 & \tabincell{c}{至少要有一块可用网卡\\ 能运行IP协议栈即可} & \tabincell{c}{至少要有一块可用网卡\\ 能运行IP协议栈即可} \\
+    \hline
+    其他 & 采用 postgresql 数据库 & 采用 postgresql 数据库 \\
+    \hline
+\end{tabular}
+% \note{这里是表的注释}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Android运行环境的配置} \label{tab:iostest-environment}
+\begin{tabular}{|c|c|c|}
+    \hline
+    类别 & 标准配置 & 最低配置 \\
+    \hline
+    硬件设备 & \tabincell{c}{
+        3年内主流配置以上的\\
+        安卓系统手机设备
+    } & \tabincell{c}{
+        6年内主流配置以上的\\
+        安卓系统手机设备
+    } \\
+    \hline
+        手机硬件 & 
+        \tabincell{c}{
+            基于ARM结构的CPU\\ 
+            主频>=2.2GHz\\ 
+            内存>=2G\\ 
+            硬盘>=64G} & 
+        \tabincell{c}{
+            基于ARM结构的CPU\\ 
+            主频>=1.5GHz\\ 
+            内存>=1G\\ 
+            硬盘>=16G} \\
+    \hline
+\end{tabular}
+% \note{这里是表的注释}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{iOS测试环境的配置} \label{tab:iostest-environment}
+\begin{tabular}{|c|c|c|}
+    \hline
+    类别 & 标准配置 & 最低配置 \\
+    \hline
+    硬件设备 & \tabincell{c}{
+        iPhone 6 测试开发机\\
+        iPhone 6 Plus 测试开发机\\
+        iPhone 6S 测试开发机\\
+        iPhone 6S Plus测试开发机\\
+        iPhone 7 Plus 测试开发机\\
+        iPhone 7S 测试开发机\\
+        iPhone 7S Plus测试开发机\\
+        iPhone 8 测试开发机\\
+        iPhone 8 Plus测试开发机\\
+        iPhone 8S 测试开发机\\
+        iPhone 8S Plus测试开发机\\
+        iPhone X 测试开发机
+    } & \tabincell{c}{
+        标准配置的部分机型\\
+        至少满足所有分辨率的机型各一部
+    } \\
+    \hline
+        手机硬件 & 
+        \tabincell{c}{
+            由于iPhone硬件较统一\\不做详细限定\\
+            存储容量建议满足>=64GB
+        } &
+        \tabincell{c}{
+           由于iPhone硬件较统一\\不做详细限定\\
+            存储容量建议至少>=16GB
+        } \\
+    \hline
+\end{tabular}
+% \note{这里是表的注释}
+\end{table}
+
+\newpage
+
+\section{需求概述}
+
+我们的项目分为服务端与客户端，其中，服务端是统一的，所有客户端都由
+该统一服务端进行数据交互与信息支持；而为了满足用户多种多样的收听音乐
+的环境，我们的客户端有较多种类。
+
+\subsection{服务端功能需求} 
+
+在服务器端，我们需要可靠的数据库来支持音乐服务的运行，这些数据库储
+存必要的信息，同需求报告中所述，我们需要：
+    \begin{enumerate}
+        \item \textbf{音乐数据库}，储存了各种音质版本的音乐数据文件；
+        \item \textbf{音乐元数据（Meta Data）数据库}，储存所有音乐的相关信息，如
+            作者、所属专辑、发行日期等；
+        \item \textbf{商品数据库}，需要储存所有音乐的价格以及优惠信息等；
+        \item \textbf{用户数据库}，需要储存所有用户的信息，包括用户名、密码、密保信息、
+            订阅信息、账户余额等；
+        \item \textbf{用户-商品库}，存储用户对音乐的购买信息，包括用户的购物车信息、
+            已购买音乐的支付信息与历史记录等；
+        \item \textbf{用户-音乐库}，存储用户与音乐之间的联系，
+            具体而言，储存了用户对听过的音乐的喜爱程度、评分、发出的评论，
+            并且储存了用户收听音乐的历史信息，如在何时，听了某首音乐多久、循环次数等。
+    \end{enumerate}
+
+服务器端不仅需要数据库服务来存储软件的数据，并且，还需要相关的接口，
+各种客户端通过调用这些服务接口来运行功能，
+具体而言，我们需要以下的服务器接口：
+\begin{enumerate}
+    \item \textbf{音乐下载接口}，通过该接口，客户端可以获取需要的音乐文件，
+        我们需要保证在尽可能多的时间段内，用户都可以获取稳定、高速的下载服务；
+    \item \textbf{流播放服务接口}，该接口提供了音乐的串流服务，主要用于在线收听没有下载
+        的音乐，根据流数据服务的时效性与响应紧急性，我们需要每一个客户端的
+        流服务请求都能得到尽可能快的相应；
+    \item \textbf{用户信息交互接口}，该接口提供了用户登陆信息的传递以及验证的功能
+        （用户注册功能亦然），我们希望该服务可以长期稳定；
+    \item \textbf{商品交易服务接口}，该接口提供了从客户端购买音乐的功能的基础，
+        当用户发起支付的需求时，对于内部支付方式（账户余额）以及多种支付方式
+        （信用卡、支付宝、微信支付以及未来可能出现的各种支付方式）都应该
+        可以正确、稳定、高效的处理；
+\end{enumerate}
+
+\subsection{客户端功能需求}
+
+ 作为一款音乐播放软件，我们首先要满足一系列基础功能，这些功能在所有
+的客户端、所有的平台上都能够完整地被实现，并且都应有统一的界面。
+我们需要实现以下界面：
+\begin{enumerate}
+    \item \textbf{用户主界面}：
+    该界面可以进入一系列音乐集 。
+        在该界面，可以看到
+        ``本地音乐''、``我的最爱''、``最近播放''
+        这三个默认的入口。
+        在默认音乐集下面，有所有用户创建的音乐集的入口列表，
+        分类为``我的歌单''，并将所有的用户自创歌单按照用户指定的顺序展示。
+    \item \textbf{音乐集查看界面}：
+    进入一个音乐集之后，将展示该音乐集的信息和功能按键，应包括：
+    音乐集封面、音乐集名称、音乐集创建者、功能按键栏、音乐集内的所有音乐；
+    并且，音乐集界面内，应包含返回按钮，来退回进入音乐集之前的界面。
+    \item \textbf{音乐播放界面}：
+    从搜索功能、音乐集内、通过推荐或通过外部链接可以进入音乐播放界面，
+        在该界面中，可以控制音乐的播放，以及查看与该音乐有关的信息，
+    \item \textbf{音乐推荐界面}：
+        该界面是产品的核心功能之一，该界面主要分为两部分：
+        \begin{itemize}
+            \item 个性推荐模块：
+                该模块中，主要根据该用户自身的历史信息以及主观喜好，
+                来推荐音乐。
+            \item 热门推荐模块：
+                该模块中，主要根据全网用户数据来推荐音乐，
+                以及展示排行榜。
+        \end{itemize}
+    \item \textbf{账户界面}：
+        在该界面中，若用户没有登陆，则应该显示登陆与注册的功能，
+        若已登录，则可以查看账户的相关信息或进行相关操作。
+    \item \textbf{设置界面}：
+        在该界面，我们需要能够对软件行为作出一定的设置，该设置需要针对不同的平台与使用场景来展示不同的设置选项。
+\end{enumerate}
 
 \section{条件与限制}
-本节至少要与需求说明文档中相关章节相一致。
+
+\subsection{设计条件与限制} % (fold)
+
+在设计上，我们需要满足以下的设计规范。
+
+        \begin{itemize}
+            \item HTML代码符合W3C-HTML5编码规范[\cite{hickson2011html5}]
+            \item XML配置符合W3C-XML编码规范 [\cite{bray1997extensible}]
+            \item JSON数据包符合ECMA-404标准 [\cite{bray2017javascript}]
+            \item 后端开发符合PEP8 Python编码规范 [\cite{van2001pep}]
+            \item UI设计符合Material Design规范
+        \end{itemize}
+
+\subsection{设计条件与限制} % (fold)
+
+    由于我们在开发过程中的软件使用计划，以及使用的
+    网络、图形界面运行库的选择，我们的产品的服务端需要满足
+    以下软件环境约束的环境中运行：
+    \begin{itemize}
+        \item 数据库: postgresql
+        \item 后端开发: Python
+        \item 并行操作: 支持
+        \item 通信协议: HTTP/HTTPS[\cite{berners1996hypertext}][\cite{fielding1999hypertext}][\cite{rescorla2000http}]
+    \end{itemize}
+
+    而我们的产品的客户端需要在以下的软件环境约束中运行：
+    \begin{itemize}
+    \item HTML: HTML5标准[\cite{hickson2011html5}]
+    \item 前端框架: Vue
+    \item CSS版本: CSS3
+    \item 样式框架: Bootstrap 4.0
+    \item 通信协议: HTTP/HTTPS[\cite{berners1996hypertext}][\cite{fielding1999hypertext}][\cite{rescorla2000http}]
+    \item 音乐格式: MEPG-3[\cite{le1991mpeg}]
+\end{itemize}
+
+\subsection{硬件条件与限制} % (fold)
+
+        为了满足现代软件需要的图形效果、网络服务，我们的产品需要满足
+        以下硬件约束的环境中运行：
+        \begin{itemize}
+            \item Web端: 1GB以上内存
+            \item iOS端: 安装了iOS 9及以上的iPhone或iPad
+            \item Android端: 安装了Android 6.0及以上的设备，1GB以上内存
+            \item 服务端: Debian 9操作系统，E5处理器，4GB内存，1Gbps及以上网络接入
+        \end{itemize}
+
