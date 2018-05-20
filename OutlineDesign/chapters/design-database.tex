@@ -18,8 +18,7 @@
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=14cm]{database_ER}
-	\caption{带图注的图片}\label{fig:noted-figure}
-
+	\caption{ER模型图}\label{fig:ER}
 \end{figure}
 
 \section{物理设计}
@@ -170,6 +169,28 @@
 	\note{自定义歌单数据库MusicList设计}
 \end{table}
 
+\subsubsection{用户评论Comments设计}
+
+自定义歌单数据库保存了歌单的信息
+
+\begin{table}[htbp]
+	\centering
+	\caption{用户评论Comments设计} \label{tab:music-list-database}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		字段名 & 类型 & 大小 & 说明 & 备注 \\
+		\hline
+		ID & char & 64 & 用户评论唯一标识符 & 主键 \\
+		\hline
+		UserID & char & 64 & 用户ID & 外键 \\
+		\hline
+		MusicID & char & 64 & 歌曲ID & 外键 \\
+		\hline
+		comment & char & 512 & 用户对歌曲的评论  & · \\
+		\hline
+	\end{tabular}
+	\note{用户评论Comments设计}
+\end{table}
 
 \section{安全性设计}	
 通过合理设置权限，只有管理员和应用程序账号
