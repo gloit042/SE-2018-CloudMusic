@@ -291,7 +291,7 @@ URL：/api/search/subscription/:name\\
 返回:
 \begin{itemize}
 	\item 成功： 200 -> List<SubscriptionInfo>
-	\item 未登录： 403 -> String = 'not logged'
+	\item 未登录： 403 -> String = 'not logged in'
 \end{itemize}
 
 \subsubsection{购买订阅接口}
@@ -319,7 +319,7 @@ URL： /api/users/add\_to\_list/\\
 返回:
 \begin{itemize}
 	\item 成功： 200 -> String = 'OK'
-	\item 未登录： 403 -> String = 'not logged'
+	\item 未登录： 403 -> String = 'not logged in'
 \end{itemize}
 
 
@@ -334,7 +334,7 @@ URL：/api/users/delete\_from\_list/\\
 \begin{itemize}
 	\item 成功： 200 -> String = 'OK'
 	\item 不存在歌曲： 403 -> String = 'music not found'
-	\item 未登录： 403 -> String = 'not logged'
+	\item 未登录： 403 -> String = 'not logged in'
 \end{itemize}
 
 \subsubsection{拷贝收听列表接口}
@@ -348,7 +348,7 @@ URL：/api/users/copylist/\\
 \begin{itemize}
 	\item 成功： 200 -> new\_list\_id = String
 	\item 不存在列表： 403 -> String = 'list not found'
-	\item 未登录： 403 -> String = 'not logged'
+	\item 未登录： 403 -> String = 'not logged in'
 \end{itemize}
 
 \subsubsection{删除收听列表接口}
@@ -362,7 +362,7 @@ URL：/api/users/deletelist/\\
 \begin{itemize}
 	\item 成功： 200 -> String = 'OK'
 	\item 不存在列表： 403 -> String = 'list not found'
-	\item 未登录： 403 -> String = 'not logged'
+	\item 未登录： 403 -> String = 'not logged in'
 \end{itemize}
 
 \subsubsection{评论歌曲接口}
@@ -376,9 +376,177 @@ URL：/api/music/:id/comment/\\
 \begin{itemize}
 	\item 成功： 200 -> String = 'OK'
 	\item 不存在歌曲： 403 -> String = 'song not found'
-	\item 未登录： 403 -> String = 'not logged'
+	\item 未登录： 403 -> String = 'not logged in'
+\end{itemize}
+
+\subsubsection{删除评论接口}
+
+\noindent
+功能：删除一个评论\\
+方法：GET\\
+URL：/api/music/:id/delete\_comment/\\
+参数： comment\_id: String\\
+返回:
+\begin{itemize}
+	\item 成功： 200 -> String = 'OK'
+	\item 不存在评论： 403 -> String = 'comment not found'
+	\item 未登录： 403 -> String = 'not logged in'
 \end{itemize}
 
 
 \section{内部接口}
-内部模块/系统之间的交互的接口。
+
+\subsection{用户信息接口}
+
+\subsubsection{user\_username\_login}
+\noindent
+函数签名：user\_username\_login(con, login\_info)\\
+参数:\\
+con：与客户之间的连接\\
+login\_info：包含用户名、密码和Cookie\\
+功能：用户使用用户名登录
+
+\subsubsection{user\_phone\_login}
+\noindent
+函数签名：user\_phone\_login(con, login\_info)\\
+参数:\\
+con：与客户之间的连接\\
+login\_info：包含电话号、密码和Cookie\\
+功能：用户使用电话号登录
+
+\subsubsection{get\_userinfo}
+\noindent
+函数签名：get\_userinfo(con, user\_ID)\\
+参数:\\
+con：与客户之间的连接\\
+user\_ID：用户ID\\
+功能：获取用户信息
+
+\subsubsection{reset\_password\_email}
+\noindent
+函数签名：reset\_password\_email(user\_ID)\\
+参数:\\
+user\_ID：用户ID\\
+功能：发送邮件来重置用户密码
+
+\subsubsection{reset\_password\_phone}
+\noindent
+函数签名：reset\_password\_phone(user\_ID)\\
+参数:\\
+user\_ID：用户ID\\
+功能：发送短信来重置用户密码
+
+\subsubsection{set\_new\_password}
+\noindent
+函数签名：set\_new\_password(con, user\_ID, new\_password, token)\\
+参数:\\
+con：与客户之间的连接\\
+user\_ID：用户ID\\
+new\_password：新密码\\
+token: 重置密码时获取得的识别码\\
+功能：发送邮件来重置用户密码
+
+\subsubsection{set\_userinfo}
+\noindent
+函数签名：set\_userinfo(con, user\_ID, new\_info)\\
+参数:\\
+con：与客户之间的连接\\
+user\_ID：用户ID\\
+new\_info：新的用户信息，包括出生年月日，个人简介等\\
+token: 重置密码时获取得的识别码\\
+功能：发送邮件来重置用户密码
+
+
+\subsection{音乐信息接口}
+
+\subsubsection{get\_musicinfo}
+\noindent
+函数签名：get\_musicinfo(con, music\_ID)\\
+参数:\\
+con：与客户之间的连接\\
+music\_ID：音乐ID\\
+功能：获取音乐信息
+
+\subsection{列表信息接口}
+
+\subsubsection{get\_listinfo}
+\noindent
+函数签名：get\_listinfo(con, list\_ID)\\
+参数:\\
+con：与客户之间的连接\\
+list\_ID：列表ID\\
+功能：获取列表信息
+
+\subsubsection{delete\_list}
+\noindent
+函数签名：delete\_list(con, list\_ID)\\
+参数:\\
+con：与客户之间的连接\\
+list\_ID：列表ID\\
+功能：删除列表
+
+\subsubsection{copy\_list}
+\noindent
+函数签名：copy\_list(con, list\_ID, user\_ID)\\
+参数:\\
+con：与客户之间的连接\\
+list\_ID：列表ID\\
+user\_ID：用户ID\\
+功能：拷贝一个列表到指定用户
+
+\subsection{订阅信息接口}
+
+\subsubsection{get\_userinfo}
+\noindent
+函数签名：get\_subscriptioninfo(con, subscription\_ID)\\
+参数:\\
+con：与客户之间的连接\\
+subscription\_ID：订阅ID\\
+功能：获取订阅信息
+
+\subsubsection{delete\_subscription}
+\noindent
+函数签名：delete\_subscription(subscription\_ID)\\
+参数:\\
+subscription\_ID：订阅ID\\
+功能：删除订阅
+
+\subsection{购买接口}
+
+\subsubsection{purchase\_music}
+\noindent
+函数签名：purchase\_music(con, music\_ID, token)\\
+参数:\\
+con：与客户之间的连接\\
+music\_ID：音乐ID\\
+token：购买凭证\\
+功能：购买音乐
+
+\subsubsection{purchase\_subscription}
+\noindent
+函数签名：purchase\_subscription(con, subscription\_ID, token)\\
+参数:\\
+con：与客户之间的连接\\
+subscription\_ID：订阅ID\\
+token：购买凭证\\
+功能：购买订阅
+
+\subsection{短信接口}
+
+\subsubsection{send\_message}
+\noindent
+函数签名：send\_message(phone, content)\\
+参数:\\
+phone：收件人手机号\\
+content：短信内容，为String\\
+功能：发送短信给指定收信人
+
+\subsection{邮件接口}
+
+\subsubsection{send\_email}
+\noindent
+函数签名：send\_email(address, Email)\\
+参数:\\
+address: 收件人地址\\
+Email：邮件内容（包含主题，内容，签名和附件）\\
+功能：发送邮件给指定收件人
