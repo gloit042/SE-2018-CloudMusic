@@ -13,6 +13,14 @@
 \section{逻辑设计}
 
 数据模型满足3NF\\
+\newpage
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=14cm]{database_ER}
+	\caption{带图注的图片}\label{fig:noted-figure}
+
+\end{figure}
 
 \section{物理设计}
 
@@ -163,7 +171,7 @@
 \end{table}
 
 
-\section{安全性设计}
+\section{安全性设计}	
 通过合理设置权限，只有管理员和应用程序账号
 能修改表的数据和读取用户隐私相关的数据。同时，数据库进行定时热备份，保证了数据库
 即使在服务器出问题丢失数据的情况下迅速恢复。
