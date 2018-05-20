@@ -13,6 +13,14 @@
 \section{逻辑设计}
 
 数据模型满足3NF\\
+\newpage
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=14cm]{database_ER}
+	\caption{带图注的图片}\label{fig:noted-figure}
+
+\end{figure}
 
 \section{物理设计}
 
@@ -28,7 +36,7 @@
 
 \begin{table}[htbp]
 \centering
-\caption{用户数据表Users设计} \label{tab:client-database}
+\caption{用户数据表Users设计} \label{tab:users-database}
 \begin{tabular}{|c|c|c|c|c|}
     \hline
     字段名 & 类型 & 大小 & 说明 & 备注 \\
@@ -49,27 +57,126 @@
     \hline
     last\_login & timestamp & 32 & 上次登录时间 & · \\
     \hline
+    music\_lists & json & var & 自定义歌单的集合 & . \\
+    \hline
 \end{tabular}
 \note{用户数据表Users设计}
 \end{table}
 
-\subsubsection{订单数据表设计}
+\subsubsection{电话用户对应关系表PhoneToUser设计}
+
+电话用户对应关系表保存了用户电话到用户ID的对应关系
+
 \begin{table}[htbp]
 \centering
-\caption{订单数据表Orders设计} \label{tab:order-database}
+\caption{电话用户对应关系表PhoneToUser设计} \label{tab:phone-user-database}
 \begin{tabular}{|c|c|c|c|c|}
     \hline
     字段名 & 类型 & 大小 & 说明 & 备注 \\
     \hline
-    ID & char & 64 & 订单的唯一标识符 & 主键\\
+    phone & char & 18 & 用户电话号码 & 主键\\
     \hline
-    user & char & 64 & 对应用户 & 外键，来自xx表 \\
+    user\_id & char & 64 & 对应用户 & 外键，来自表Users \\
     \hline
 \end{tabular}
-\note{订单数据表Orders设计}
+\note{电话用户对应关系表PhoneToUser设计}
 \end{table}
-\section{安全性设计}
-备份和容灾设计。
+
+\subsubsection{音乐信息数据库Musics设计}
+
+音乐信息数据库保存了音乐的信息
+
+\begin{table}[htbp]
+	\centering
+	\caption{音乐信息数据库Musics设计} \label{tab:music-database}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		字段名 & 类型 & 大小 & 说明 & 备注 \\
+		\hline
+		ID & char & 64 & 音乐唯一标识符 & 主键\\
+		\hline
+		name & char & 64 & 音乐名称 & · \\
+		\hline
+		author & char & 64 & 作者 & · \\
+		\hline
+		length & smallint & 16 & 时长(秒) & · \\
+		\hline
+		size & int & 32 & 大小(字节) & · \\
+		\hline
+	\end{tabular}
+	\note{音乐信息数据库Musics设计}
+\end{table}
+
+\subsubsection{订阅信息数据库Subscriptions设计}
+
+订阅信息数据库保存了订阅的信息
+
+\begin{table}[htbp]
+	\centering
+	\caption{订阅信息数据库Subscriptions设计} \label{tab:subscription-database}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		字段名 & 类型 & 大小 & 说明 & 备注 \\
+		\hline
+		ID & char & 64 & 订阅唯一标识符 & 主键\\
+		\hline
+		name & char & 64 & 订阅名称 & · \\
+		\hline
+		contents & json & var & 包含的音乐的集合  & · \\
+		\hline
+	\end{tabular}
+	\note{订阅信息数据库Subscriptions设计}
+\end{table}
+
+\subsubsection{用户音乐购买信息MusicSells设计}
+
+用户音乐购买信息保存了相当于订阅信息倒排索引的信息
+
+\begin{table}[htbp]
+	\centering
+	\caption{用户音乐购买信息MusicSells设计} \label{tab:music-sell-database}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		字段名 & 类型 & 大小 & 说明 & 备注 \\
+		\hline
+		user\_ID & char & 64 & 用户ID & 主键\\
+		\hline
+		music\_ID & char & 64 & 音乐ID & 主键 \\
+		\hline
+		count & smallint & 8 & 累计次数  & · \\
+		\hline
+	\end{tabular}
+	\note{用户音乐购买信息MusicSells设计}
+\end{table}
+
+\subsubsection{自定义歌单数据库MusicList设计}
+
+自定义歌单数据库保存了歌单的信息
+
+\begin{table}[htbp]
+	\centering
+	\caption{自定义歌单数据库MusicList设计} \label{tab:music-list-database}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		字段名 & 类型 & 大小 & 说明 & 备注 \\
+		\hline
+		ID & char & 64 & 歌单唯一标识符 & 主键\\
+		\hline
+		name & char & 64 & 歌单名称 & · \\
+		\hline
+		contents & json & var & 包含的音乐的集合  & · \\
+		\hline
+	\end{tabular}
+	\note{自定义歌单数据库MusicList设计}
+\end{table}
+
+
+\section{安全性设计}	
+通过合理设置权限，只有管理员和应用程序账号
+能修改表的数据和读取用户隐私相关的数据。同时，数据库进行定时热备份，保证了数据库
+即使在服务器出问题丢失数据的情况下迅速恢复。
 
 \section{数据库管理与维护说明}
-对于数据库的维护，随时对数据库中的信息加以调试和保存备份。同样需要个工作人员进行系统的分析和用户的反馈，对系统进行升级以及功能的完善。同时保证系统安全有序的运行。
+监视数据库进程，如果出现无法连接马上告警。
+
+定时更新数据库安全补丁。
