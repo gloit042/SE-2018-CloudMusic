@@ -16,6 +16,7 @@ class Song:\\
 \indent \indent   Author : String list 歌曲的作者名\\
 \indent \indent   AID : int           歌曲的专辑标识符\\
 \indent \indent   Available : bool    歌曲是否已下架\\
+\indent \indent   Score : float       歌曲评分\\
 \\
 class Album:\\
 \indent \indent    AID : int           专辑的标识符\\
@@ -58,20 +59,24 @@ class CacheState:       本地的缓存状况\\
 \section{数据结构与程序模块的关系}
 \begin{table}[htbp]
 \centering
-\caption{客户端数据结构与程序代码的关系表} \label{tab:datastructure-module}
-\begin{tabular}{|c|c|c|c|c|}
+\caption{客户端数据结构与程序代码的关系表} \label{tab:datastructure-module-client}
+\begin{tabular}{|c|c|c|c|c|c|}
     \hline
-    . & 听歌模块 & 购买模块 & 社交模块 & 下载模块 \\
+    模块\backslash 数据结构 & 用户 & 评论 & 歌曲 & 购买情况 & 本地缓存 \\
     \hline
-    用户数据结构 & Y & Y & Y & Y \\
+    储存 & Y & Y & Y & Y & Y \\
     \hline
-    评论数据结构 & . & . & Y & . \\
+    数据库 & Y & Y & Y & Y & . \\
     \hline
-    歌曲数据结构 & Y & . & . & Y \\
+    用户 & Y & . & . & . & . \\
     \hline
-    购买情况数据结构 & . & Y & . & Y \\
+    图形界面 & Y & Y & Y & Y & Y \\
     \hline
-    本地缓存数据结构 & Y & . & Y & Y \\
+    数据传输 & . & . & . & . & Y \\
+    \hline
+    审计 & . & . & . & . & . \\
+    \hline
+    网络请求 & Y & Y & Y & Y & Y \\
     \hline
 \end{tabular}
 \note{客户端各项数据结构的实现与各个程序模块的分配关系}
@@ -79,20 +84,24 @@ class CacheState:       本地的缓存状况\\
 
 \begin{table}[htbp]
     \centering
-    \caption{服务端数据结构与程序代码的关系表} \label{tab:datastructure-module}
-    \begin{tabular}{|c|c|c|c|c|}
+    \caption{服务端数据结构与程序代码的关系表} \label{tab:datastructure-module-server}
+    \begin{tabular}{|c|c|c|c|c|c|}
         \hline
-        . & 听歌模块 & 购买模块 & 社交模块 & 下载模块 \\
+        模块\backslash 数据结构 & 用户 & 评论 & 歌曲 & 购买情况 & 本地缓存 \\
         \hline
-        用户数据结构 & Y & Y & Y & Y \\
+        储存 & Y & Y & Y & Y & . \\
         \hline
-        评论数据结构 & . & . & Y & . \\
+        数据库 & Y & Y & Y & Y & . \\
         \hline
-        歌曲数据结构 & Y & . & . & Y \\
+        用户 & Y & . & . & . & . \\
         \hline
-        购买情况数据结构 & . & Y & . & Y \\
+        图形界面 & . & . & . & . & . \\
         \hline
-        本地缓存数据结构 & . & . & . & . \\
+        数据传输 & . & . & . & . & . \\
+        \hline
+        审计 & Y & . & . & Y & . \\
+        \hline
+        网络请求 & Y & Y & Y & Y & . \\
         \hline
     \end{tabular}
     \note{服务器端各项数据结构的实现与各个程序模块的分配关系}
