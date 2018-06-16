@@ -1,5 +1,6 @@
-\chapter{具体需求}
+%!TEX root = ../main.tex
 
+\chapter{具体需求}
 
 \section{功能需求}
 
@@ -311,15 +312,21 @@
 
 \subsection{R.CLOUDMUSIC.APP.003生成音乐播放界面}
 \subsubsection{介绍}
+		\R{
+		注：由于新增的K歌界面需求，我们需要音乐界面同时处理
+		K歌界面的需求，因为二者界面元素相似，结构相通。
+		}
 	这是在 生成音乐播放界面 时，我们需要处理的功能点，包括：
 	\begin{itemize}
 		\item 判定音乐是否可以被查看；
+		\item \R{根据情况，判断当前需要的是普通歌曲播放界面还是K歌模式的音乐界面}；
 		\item 生成音乐播放界面的内容；
 	\end{itemize}
 \subsubsection{输入}
 	\begin{itemize}
 		\item \textbf{输入来源}：客户端或网页浏览器；
-		\item \textbf{内容}：请求的音乐ID以及用户登录凭证（可选）；
+		\item \textbf{内容}：请求的音乐ID以及用户登录凭证（可选）\R{
+			，同时需要制定音乐模式（播放模式或K歌模式）}；
 		\item \textbf{有效输入范围}：需判定为合法的请求；
 	\end{itemize}
 \subsubsection{处理}
@@ -332,7 +339,10 @@
 			若否或没有登录，检查该音乐是否允许试听，若可以，生成试听模式的界面，
 			否则返回错误信息；
 		\item 若具有播放权，生成完整播放界面；
-		\item 具体的两种界面的要求，请参照小节\ref{ssec:ui}；
+		\R{
+		\item 判断当前音乐模式，可以为播放模式，或者为K歌模式；
+		}
+		\item 具体的两种模式的界面的要求，请参照小节\ref{ssec:ui}；
 		\item 返回完成的信息；
 	\end{enumerate}
 	\noindent 异常处理：
@@ -424,7 +434,51 @@
 		并按照情况处理；
 \end{itemize}
 
-\subsection{R.CLOUDMUSIC.APP.006生成设置界面}
+\R {
+\subsection{R.CLOUDMUSIC.APP.006生成私人空间界面}
+\subsubsection{介绍}
+	这是在 生成私人空间界面 时，我们需要处理的功能点，包括：
+	\begin{itemize}
+		\item 判定访问用户的登录状态；
+		\item 判定被访问用户私人空间的可访问状态；
+		\item 生成对应的私人空间界面的内容；
+	\end{itemize}
+\subsubsection{输入}
+	\begin{itemize}
+		\item \textbf{输入来源}：客户端或网页浏览器；
+		\item \textbf{内容}：请求的来源以及用户登录凭证（可选），被访问用户的身份标识；
+		\item \textbf{有效输入范围}：需判定为合法的请求，
+			需要检验访问用户的身份标识的有效性；
+	\end{itemize}
+\subsubsection{处理}
+	\begin{enumerate}
+		\item 检测输入有效性，检测请求来源和格式是否符合标准；
+		\item 检测登陆凭据，若校验失败或登录超时，返回对应错误，不进入下一步；
+		\item 检测登陆被访问用户的身份标识，
+			若校验失败，返回对应错误，不进入下一步；
+		\item 向服务器请求被访问用户的数据；
+		\item 生成被访问用户的私人空间的界面信息元素，
+			具体的界面要求，请参照小节\ref{ssec:ui}；
+		\item 返回完成的信息；
+	\end{enumerate}
+	\noindent 异常处理：
+	\begin{enumerate}
+		\item \textbf{登录信息失败}：返回登陆失败错误的信息，客户端将请求用户重登陆；
+		\item \textbf{被访问用户身份标识检查失败}：告知用户访问失败，并说明被访问的用户不存在；
+		\item \textbf{网络访问}：返回网络错误的信息，客户端提示无法查看，
+			请求用户检查网络状态；
+	\end{enumerate}
+\subsubsection{输出}
+\begin{itemize}
+	\item \textbf{输出位置}：客户端或网页浏览器；
+	\item \textbf{内容}：若成功，返回 被访问用户的人看见界面生成完成的信息 ，若失败，返回 失败的原因；
+	\item \textbf{有效输出范围}：无限制（根据服务端的程序逻辑，不会产生非法响应）；
+	\item \textbf{错误消息}：返回错误信息，告知用户尝试进入私人空间界面失败的原因，
+		并按照情况处理；
+\end{itemize}
+}
+ 
+\subsection{\R{R.CLOUDMUSIC.APP.007生成设置界面}}
 \subsubsection{介绍}
 	这是在 生成设置界面 时，我们需要处理的功能点，包括：
 	\begin{itemize}
@@ -450,6 +504,10 @@
 	\item \textbf{有效输出范围}：无限制（根据服务端的程序逻辑，不会产生非法响应）；
 	\item \textbf{错误消息}：理论上，该界面不应该发生错误，若有，则应当视为程序BUG；
 \end{itemize}
+\R{
+\subsubsection{备注}
+该小节，需求编号由原R.CLOUDMUSIC.APP.006更改为R.CLOUDMUSIC.APP.007。
+	}
 
 \subsection{R.CLOUDMUSIC.MUSIC.001音乐播放控制}
 \subsubsection{介绍}
@@ -642,21 +700,23 @@
 		正确格式决定相关输出；
 \end{itemize}
 
-\subsection{R.CLOUDMUSIC.SHOP.002购买订阅}
+\R{
+\subsection{R.CLOUDMUSIC.SHOP.002购买会员}
 \subsubsection{介绍}
-	这是在 处理订阅购买请求 时，我们需要处理的功能点，包括：
+	注：会员功能在原本的需求分析中也存在，但是现在将它规划得更为具体了。
+	这是在 处理会员购买请求 时，我们需要处理的功能点，包括：
 	\begin{itemize}
-		\item 连接服务器，验证订阅的价格；
+		\item 连接服务器，验证会员的价格；
 		\item 验证支付信息的真伪；
 		\item 在数据库中修改账户的音乐访问权；
 	\end{itemize}
 \subsubsection{输入}
 	\begin{itemize}
 		\item \textbf{输入来源}：客户端或网页浏览器；
-		\item \textbf{内容}：对订阅的购买请求，包括：
+		\item \textbf{内容}：对会员的购买请求，包括：
 		\begin{enumerate}
 			\item 用户登陆凭据；
-			\item 购买订阅的时长；
+			\item 购买会员的时长；
 			\item 是否自动续费；
 			\item 用户完成支付的凭据（内部或外部）；
 		\end{enumerate}
@@ -690,6 +750,7 @@
 	\item \textbf{错误消息}：按照系统响应请求的方式或者网络服务发出响应报文的
 		正确格式决定相关输出；
 \end{itemize}
+}
 
 \subsection{R.CLOUDMUSIC.SYNC.001数据同步上传}
 \subsubsection{介绍}
@@ -872,7 +933,7 @@
 
 \begin{enumerate}
 	\item \textbf{要求的屏幕格式}:
-		PC客户端支持大于$1334 \times 750$ 分辨率的移动设备屏幕，并对根据屏幕大小以及系统
+		移动客户端支持大于$1334 \times 750$ 分辨率的移动设备屏幕，并对根据屏幕大小以及系统
 		设定的屏幕元素放大比例做自动适应；
 	\item \textbf{使用方式}:
 		对于一般的用户，我们的产品使用逻辑与一般的移动设备软件一致，
@@ -882,6 +943,7 @@
 	\begin{itemize}
 		\item 主页界面的用户接口设计，请参考图\ref{fig:mobile_home}；
 		\item 音乐播放界面的用户接口设计，请参考图\ref{fig:mobile_music}；
+		\item \R{K歌界面的用户接口设计，请参考图\ref{fig:mobile_K}}；
 		\item 音乐集查看界面的用户接口设计，请参考图\ref{fig:mobile_collection}；
 	\end{itemize}
 \end{enumerate}
@@ -916,6 +978,49 @@
     }
 \end{figure}
 
+\R{
+\subsubsection{社交需求界面用户接口} % (fold)
+	\begin{enumerate}
+	\item \textbf{使用方式}:
+		私人空间中，用户的基本信息和两种表现形式。
+		首先是``他/她的歌单''，显示该用户创建的歌单，并可以进行点赞操作。
+		然后是``他/她的动态''，可以展示该用户发出的动态，并可以进行评论和点赞。
+		以上点赞和评论的数量会被显示。
+	\item \textbf{页面规划}： 
+	\begin{itemize}
+		\item 私人空间-歌单界面设计，请参考图\ref{fig:mobile_user1}；
+		\item 私人空间-动态界面设计，请参考图\ref{fig:mobile_user2}；
+	\end{itemize}
+\end{enumerate}
+}
+
+\begin{figure}[h!]
+  \centering
+
+  \includegraphics[width=.37\linewidth]{figures/mobile_user1}
+
+  \caption{  \label{fig:mobile_user1}
+  		\R{移动客户端私人空间-歌单界面用户接口设计图}
+    }
+\end{figure}
+\begin{figure}[h!]
+  \centering
+
+  \includegraphics[width=.37\linewidth]{figures/mobile_user2}
+
+  \caption{  \label{fig:mobile_user2}
+  		\R{移动客户端私人空间-动态界面用户接口设计图}
+    }
+\end{figure}
+\begin{figure}[h!]
+  \centering
+
+  \includegraphics[width=.37\linewidth]{figures/mobile_K}
+
+  \caption{  \label{fig:mobile_K}
+  		\R{移动客户端K歌模式下音乐界面用户接口设计图}
+    }
+\end{figure}
 
 \subsubsection{网页客户端用户接口} % (fold)
 
@@ -964,8 +1069,6 @@
   		网页客户端音乐集展示用户接口设计图
     }
 \end{figure}
-
-
 
 \subsection{软件接口}
 
