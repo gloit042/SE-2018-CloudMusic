@@ -252,6 +252,20 @@ URL：/api/search/music/:name\\
 	\item 未登录： 403 -> String = 'not logged in'
 \end{itemize}
 
+\R{
+\subsubsection{获取下一个推荐的音乐的参数接口}
+\noindent
+功能：获得音乐文件信息\\
+方法：GET\\
+URL：/api/music\_recommend/\\
+参数: 无\\
+返回:
+\begin{itemize}
+	\item 成功： 200 -> MusicFileInfo
+	\item 未登录： 403 -> String = 'not logged in'
+\end{itemize}
+}
+
 \subsubsection{获取音乐参数接口}
 
 \noindent
@@ -393,6 +407,106 @@ URL：/api/music/:id/delete\_comment/\\
 	\item 未登录： 403 -> String = 'not logged in'
 \end{itemize}
 
+\R{
+	\subsubsection{添加好友接口}
+	\noindent
+	功能：添加好友\\
+	方法：GET\\
+	URL：/api/friend/add/\\
+	参数: user\_id: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+		\item 已添加： 403 -> String = 'already friends'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{删除好友接口}
+	\noindent
+	功能：删除好友\\
+	方法：GET\\
+	URL：/api/friend/delete/\\
+	参数: user\_id: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+		\item 未添加： 403 -> String = 'not friends'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{发布分享接口}
+	\noindent
+	功能：发布分享\\
+	方法：POST\\
+	URL：/api/share/self\\
+	参数: content: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{删除分享接口}
+	\noindent
+	功能：删除分享\\
+	方法：POST\\
+	URL：/api/share/delete\\
+	参数: share\_id: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{点赞分享接口}
+	\noindent
+	功能：点赞分享\\
+	方法：GET\\
+	URL：/api/share/thumb/\\
+	参数: share\_id: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{点赞分享接口}
+	\noindent
+	功能：点赞分享\\
+	方法：GET\\
+	URL：/api/share/unthumb/\\
+	参数: share\_id: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
+
+
+\R{
+	\subsubsection{发布分享评论接口}
+	\noindent
+	功能：发布分享的评论\\
+	方法：POST\\
+	URL：/api/share/comment\\
+	参数: shared\_id: String, content: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
 
 \section{内部接口}
 
@@ -459,6 +573,7 @@ token: 重置密码时获取得的识别码\\
 
 \subsection{音乐信息接口}
 
+
 \subsubsection{get\_musicinfo}
 \noindent
 函数签名：get\_musicinfo(con, music\_ID)\\
@@ -493,6 +608,16 @@ con：与客户之间的连接\\
 list\_ID：列表ID\\
 user\_ID：用户ID\\
 功能：拷贝一个列表到指定用户
+
+\R{
+	\subsubsection{next\_recommend}
+	\noindent
+	函数签名：next\_recommend(user)\\
+	参数:\\
+	user: 用户ID\\
+	功能：得到下一个推荐的音乐
+}
+
 
 \subsection{订阅信息接口}
 
@@ -550,3 +675,77 @@ content：短信内容，为String\\
 address: 收件人地址\\
 Email：邮件内容（包含主题，内容，签名和附件）\\
 功能：发送邮件给指定收件人
+
+\subsection{交友功能}
+\R{
+\subsubsection{add\_friend}
+\noindent
+函数签名：add\_friend(proposer, friend)\\
+参数:\\
+proposer: 添加者主体ID\\
+friend: 朋友的ID\\
+功能：添加朋友
+}
+
+\R{
+	\subsubsection{delete\_friend}
+	\noindent
+	函数签名：delete\_friend(proposer, friend)\\
+	参数:\\
+	proposer: 删除者主体ID\\
+	friend: 朋友的ID\\
+	功能：删除好友
+}
+
+
+\R{
+	\subsubsection{user\_share}
+	\noindent
+	函数签名：user\_share(user, content)\\
+	参数:\\
+	user: 用户ID\\
+	content: 分享内容\\
+	功能：在私人空间分享状态
+}
+
+\R{
+	\subsubsection{delete\_share}
+	\noindent
+	函数签名：user\_share(user, share\_id)\\
+	参数:\\
+	user: 用户ID\\
+	shared\_id: 分享id\\
+	功能：删除分享
+}
+
+\R{
+	\subsubsection{thumb\_share}
+	\noindent
+	函数签名：thumb\_share(user, share\_id)\\
+	参数:\\
+	user: 用户ID\\
+	shared\_id: 分享ID\\
+	功能：对分享点赞
+}
+
+\R{
+	\subsubsection{unthumb\_share}
+	\noindent
+	函数签名：unthumb\_share(user, share\_id)\\
+	参数:\\
+	user: 用户ID\\
+	shared\_id: 分享ID\\
+	功能：取消点赞
+}
+
+\R{
+	\subsubsection{comment\_share}
+	\noindent
+	函数签名：comment\_share(user, share\_id, content)\\
+	参数:\\
+	user: 用户ID\\
+	shared\_id: 分享ID\\
+	content: 评论内容\\
+	功能：评论分享
+}
+
