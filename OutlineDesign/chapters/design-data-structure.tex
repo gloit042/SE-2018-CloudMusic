@@ -8,9 +8,8 @@ class User:             用户类\\
 \indent \indent    Password: String    账户密码\\
 \indent \indent    AccessToken: String 每次登陆生成的 Token
 
-\subsection{歌曲数据结构}
-
 \R{
+\subsection{歌曲数据结构}
 class Qual:\\
 \indent \indent   Channel : int       歌曲的声道数\\
 \indent \indent   SampleRate : int    歌曲的采样率\\
@@ -65,16 +64,25 @@ class CacheState:       本地的缓存状况\\
 \indent \indent    Downloaded : int    已下载部分的大小\\
 \indent \indent    File : path         缓存在磁盘的路径\\
 
-
-\subsection{\R{空间动态数据结构}}
 \R{
+\subsection{空间动态数据结构}
 class Twit:
 \indent \indent    ID : String         动态的ID\\
-\indent \indent    Time : datetime     动态的时间\\
+\indent \indent    Time : Datetime     动态的时间\\
 \indent \indent    UID : int           发出动态的用户\\
 \indent \indent    Content : String    动态的内容\\
 \indent \indent    Up : int list       点赞的用户列表\\
 }
+
+\R{
+\subsection{K歌数据结构}
+class Cover:
+\indent \indent    ID : int          歌曲的 ID\\
+\indent \indent    User : int        用户的 ID\\
+\indent \indent    Time : Datetime   唱歌的时间\\
+\indent \indent    Audio : path      唱歌录音文件的路径\\
+}
+
 
 \section{物理结构设计}
 各数据结构无特殊物理结构要求。
@@ -83,23 +91,23 @@ class Twit:
 \begin{table}[htbp]
 \centering
 \caption{客户端数据结构与程序代码的关系表} \label{tab:datastructure-module-client}
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
     \hline
-    模块$\backslash$ 数据结构 & 用户 & 评论 & 歌曲 & 购买情况 & 本地缓存 \\
+    模块$\backslash$ 数据结构 & 用户 & 评论 & 歌曲 & 购买情况 & 本地缓存 & \R{空间动态} & \R{K歌}\\
     \hline
-    储存 & Y & Y & Y & Y & Y \\
+    储存 & Y & Y & Y & Y & Y & Y & Y \\
     \hline
-    数据库 & Y & Y & Y & Y & . \\
+    数据库 & Y & Y & Y & Y & . & . & .\\
     \hline
-    用户 & Y & . & . & . & . \\
+    用户    & Y & . & . & . & . & Y & Y \\
     \hline
-    图形界面 & Y & Y & Y & Y & Y \\
+    图形界面 & Y & Y & Y & Y & Y & Y & .\\
     \hline
-    数据传输 & . & . & . & . & Y \\
+    数据传输 & . & . & . & . & Y & Y & .\\
     \hline
-    审计 & . & . & . & . & . \\
+    审计    & . & . & . & . & . & . & .\\
     \hline
-    网络请求 & Y & Y & Y & Y & Y \\
+    网络请求 & Y & Y & Y & Y & Y & Y & .\\
     \hline
 \end{tabular}
 \note{客户端各项数据结构的实现与各个程序模块的分配关系}
@@ -108,23 +116,23 @@ class Twit:
 \begin{table}[htbp]
     \centering
     \caption{服务端数据结构与程序代码的关系表} \label{tab:datastructure-module-server}
-    \begin{tabular}{|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
         \hline
-        模块$\backslash$ 数据结构 & 用户 & 评论 & 歌曲 & 购买情况 & 本地缓存 \\
+        模块$\backslash$ 数据结构 & 用户 & 评论 & 歌曲 & 购买情况 & 本地缓存 & \R{空间动态} & \R{K歌}\\
         \hline
-        储存 & Y & Y & Y & Y & . \\
+        储存 & Y & Y & Y & Y & . & Y & Y\\
         \hline
-        数据库 & Y & Y & Y & Y & . \\
+        数据库 & Y & Y & Y & Y & . & Y & .\\
         \hline
-        用户 & Y & . & . & . & . \\
+        用户 & Y & . & . & . & . & Y & Y\\
         \hline
-        图形界面 & . & . & . & . & . \\
+        图形界面 & . & . & . & . & . & . & .\\
         \hline
-        数据传输 & . & . & . & . & . \\
+        数据传输 & . & . & Y & . & . & Y & Y\\
         \hline
-        审计 & Y & . & . & Y & . \\
+        审计 & Y & . & . & Y & . & . & .\\
         \hline
-        网络请求 & Y & Y & Y & Y & . \\
+        网络请求 & Y & Y & Y & Y & . & Y & Y\\
         \hline
     \end{tabular}
     \note{服务器端各项数据结构的实现与各个程序模块的分配关系}
