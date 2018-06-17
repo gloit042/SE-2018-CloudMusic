@@ -1363,6 +1363,7 @@ JSON所支持的数据类型如下：
 
 \noindent
 功能：向手机发送验证号码用于重置密码\\
+参数：phone\_number: String\\
 返回:
 \begin{itemize}
 \item 成功： 200 -> String = 'OK'
@@ -1376,6 +1377,7 @@ JSON所支持的数据类型如下：
 
 \noindent
 功能：获得当前登录用户的信息\\
+参数：无\\
 返回:
 \begin{itemize}
 	\item 成功： 200 -> User
@@ -1383,15 +1385,28 @@ JSON所支持的数据类型如下：
 \end{itemize}
 
 
-\subsubsection{GET /api/search/:name}
+\subsubsection{GET /api/search/music/:name}
 
 \noindent
 功能：对音乐名字进行搜索\\
+参数：无\\
 返回:
 \begin{itemize}
 	\item 成功： 200 -> List<MusicInfo>
 	\item 未登录： 403 -> String = 'not logged'
 \end{itemize}
+
+\R{
+	\subsubsection{GET /api/music\_recommend/}
+	\noindent
+	功能：获得音乐文件信息\\
+	参数: 无\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> MusicFileInfo
+		\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
 
 \subsubsection{GET /api/music/}
 
@@ -1431,3 +1446,114 @@ JSON所支持的数据类型如下：
 	\item 未登录： 403 -> String = 'not logged'
 \end{itemize}
 
+\R{
+	\subsubsection{POST /api/music/:id/comment/}
+	\noindent
+	功能：评论一个歌曲\\
+	参数: id: String，content: String\\
+	返回:
+	\begin{itemize}
+	\item 成功： 200 -> String = 'OK'
+	\item 不存在歌曲： 403 -> String = 'song not found'
+	\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{POST /api/music/:id/delete\_comment/}
+	\noindent
+	功能：删除一个评论\\
+	参数: id: String\\
+	返回:
+	\begin{itemize}
+	\item 成功： 200 -> String = 'OK'
+	\item 不存在评论： 403 -> String = 'comment not found'
+	\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{GET /api/friend/add/}
+	\noindent
+	功能:添加好友\\
+	参数: user\_id: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+		\item 已添加： 403 -> String = 'already friends'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{GET /api/friend/delete/}
+	\noindent
+	功能：删除好友\\
+	参数: user\_id: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+	\item 未登录： 403 -> String = 'not logged in'
+	\item 未添加： 403 -> String = 'not friends'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{POST /api/share/self}
+	\noindent
+	功能：发布分享\\
+	参数: content: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{GET /api/share/delete/}
+	\noindent
+	功能：删除分享\\
+	参数: share\_id: String\\
+返回:
+\begin{itemize}
+	\item 成功： 200 -> String = 'ok'
+	\item 未登录： 403 -> String = 'not logged in'
+\end{itemize}
+}
+
+\R{
+	\subsubsection{GET /api/share/thumb/}
+	\noindent
+	功能：点赞分享\\
+	参数: share\_id: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{GET /api/share/unthumb/}
+	\noindent
+	功能：取消点赞分享\\
+	参数: share\_id: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
+
+\R{
+	\subsubsection{POST /api/share/comment}
+	\noindent
+	功能：发布分享的评论\\
+	参数: shared\_id: String, content: String\\
+	返回:
+	\begin{itemize}
+		\item 成功： 200 -> String = 'ok'
+		\item 未登录： 403 -> String = 'not logged in'
+	\end{itemize}
+}
