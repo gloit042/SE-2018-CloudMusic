@@ -10,6 +10,13 @@ class User:             用户类\\
 
 \subsection{歌曲数据结构}
 
+\R{
+class Qual:\\
+\indent \indent   Channel : int       歌曲的声道数\\
+\indent \indent   SampleRate : int    歌曲的采样率\\
+\indent \indent   Depth : int         歌曲的采样深度\\
+}
+
 class Song:\\
 \indent \indent   SID : int           每首歌曲的唯一标识符\\
 \indent \indent   Name : String       歌曲名\\
@@ -17,6 +24,10 @@ class Song:\\
 \indent \indent   AID : int           歌曲的专辑标识符\\
 \indent \indent   Available : bool    歌曲是否已下架\\
 \indent \indent   Score : float       歌曲评分\\
+\R{
+\indent \indent   Quality : Qual list 可用的歌曲质量列表\\
+}
+\indent \indent   Path : path \R{list}  \R{不同质量的}歌曲在服务器上的路径\\
 \\
 class Album:\\
 \indent \indent    AID : int           专辑的标识符\\
@@ -30,10 +41,10 @@ class Album:\\
 class PurchaseSong:\\
 \indent \indent    SID : int           歌曲的标识符\\
 \indent \indent    UID : int           用户的标识符\\
-\indent \indent    ListenAvailable : bool    用户是否能够听该曲\\
-\indent \indent    DownloadAvailable : bool  用户能否下载该曲\\
-\indent \indent    ListenUntil : Datetime    听歌的有效期限\\
-\indent \indent    DownloadUntil : Datetime  下载的有效期限
+\indent \indent    ListenAvailable : bool \R{list}   用户是否能够听\R{不同质量的}该曲\\
+\indent \indent    DownloadAvailable : bool \R{list} 用户能否下载\R{不同质量的}该曲\\
+\indent \indent    ListenUntil : Datetime \R{list}   听不同质量的歌的有效期限\\
+\indent \indent    DownloadUntil : Datetime \R{list} 下载\R{不同质量的歌}的有效期限
 
 \subsection{评论数据结构}
 
@@ -46,12 +57,24 @@ class Comment:\\
 \subsection{本地缓存数据结构}
 
 class CacheState:       本地的缓存状况\\
-\indent \indent    type : enum{Music, AlbumImage, UserImage}
+\indent \indent    type : enum{Music, \R{Image, Audio, Video}}
 \indent \indent                        缓存内容的种类\\
 \indent \indent    ID : int            资源的标识符\\
 \indent \indent    Ready : bool        资源是否已下载到本地\\
 \indent \indent    Size : int          缓存资源的大小\\
-\indent \indent    Downloaded : int    已下载部分的大小
+\indent \indent    Downloaded : int    已下载部分的大小\\
+\indent \indent    File : path         缓存在磁盘的路径\\
+
+
+\subsection{\R{空间动态数据结构}}
+\R{
+class Twit:
+\indent \indent    ID : String         动态的ID\\
+\indent \indent    Time : datetime     动态的时间\\
+\indent \indent    UID : int           发出动态的用户\\
+\indent \indent    Content : String    动态的内容\\
+\indent \indent    Up : int list       点赞的用户列表\\
+}
 
 \section{物理结构设计}
 各数据结构无特殊物理结构要求。
