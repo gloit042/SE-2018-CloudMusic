@@ -26,6 +26,10 @@
         \hline
         SYNC.002 & SYNC.001 & 需要上传数据后才能下载\\
         \hline
+        \R{APP.006} & \R{USER.001} & \R{生成私人空间页面需要先登陆}\\
+        \hline
+        \R{SHOP.002} & \R{USER.001} & \R{购买会员需要先登陆}\\
+        \hline
     \end{tabular}
 \end{table}
 
@@ -49,7 +53,9 @@
         \hline
         SHOP.001 & DB.002 & 购买音乐需要访问用户数据库以更改权限\\
         \hline
-        SHOP.002 & DB.001 & 订阅需改变用户信息\\
+        \R{SHOP.002} & \R{DB.001} & \R{购买会员需查询和改变用户信息}\\
+        \hline
+        \R{APP.006} & \R{DB.001} & \R{个人页面需要访问数据库以确定好友和点赞人的身份}\\
         \hline
     \end{tabular}
 \end{table}
